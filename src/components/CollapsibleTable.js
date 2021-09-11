@@ -43,7 +43,7 @@ function createData(
     age,
     sku,
     brand,
-    details: [{ age, color, category, qty: qtyAvailable, listingDate }],
+    details: [{ age, cost, color, category, qty: qtyAvailable, listingDate }],
   };
 }
 
@@ -120,6 +120,7 @@ function Row(props) {
                     <TableCell align="left">Sku</TableCell>
                     <TableCell align="left">Color</TableCell>
                     <TableCell align="left">Category</TableCell>
+                    <TableCell align="left">Cost</TableCell>
                     <TableCell align="left">Age</TableCell>
                     <TableCell align="right">Listing Date</TableCell>
                   </TableRow>
@@ -131,8 +132,8 @@ function Row(props) {
                       <TableCell align="left">{detailsRow.sku}</TableCell>
                       <TableCell align="left">{detailsRow.color}</TableCell>
                       <TableCell align="left">{detailsRow.category}</TableCell>
+                      <TableCell align="left">{detailsRow.cost}</TableCell>
                       <TableCell align="left">{detailsRow.age}</TableCell>
-
                       <TableCell align="right">
                         {detailsRow.listingDate}
                       </TableCell>
