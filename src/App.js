@@ -1,7 +1,8 @@
-import DataTable from "./components/DataTable";
+// import DataTable from "./components/DataTable";
 import CollapsibleTable from "./components/CollapsibleTable";
 import { Container } from "@material-ui/core";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
+import Header from "./components/Header.js";
 
 const theme = createTheme({
   typography: {
@@ -15,6 +16,7 @@ function App() {
     <div className="App">
       <MuiThemeProvider theme={theme}>
         <Container>
+          <Header />
           <CollapsibleTable />
         </Container>
         {/* <DataTable /> */}
