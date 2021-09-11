@@ -84,7 +84,7 @@ function Row(props) {
         style={{ cursor: "pointer" }}
         className={classes.root}
       >
-        <TableCell>
+        <TableCell style={{ padding: "2px" }}>
           <IconButton
             aria-label="expand row"
             size="small"
@@ -93,14 +93,18 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {row.title}
+        <TableCell style={{ padding: "2px" }}>{row.title}</TableCell>
+        {/* <TableCell style={{ padding: "2px" }} align="left">{row.cost}</TableCell> */}
+        <TableCell style={{ padding: "2px" }} align="left">
+          {row.price}
         </TableCell>
-        {/* <TableCell align="left">{row.cost}</TableCell> */}
-        <TableCell align="left">{row.price}</TableCell>
-        <TableCell align="left">{row.age}</TableCell>
-        {/* <TableCell align="left">{row.sku}</TableCell> */}
-        <TableCell align="left">{row.brand}</TableCell>
+        <TableCell style={{ padding: "2px" }} align="left">
+          {row.age}
+        </TableCell>
+        {/* <TableCell style={{ padding: "2px" }} align="left">{row.sku}</TableCell> */}
+        <TableCell style={{ padding: "2px" }} align="left">
+          {row.brand}
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
@@ -125,9 +129,7 @@ function Row(props) {
                     <TableRow key={detailsRow.title}>
                       <TableCell align="left">{detailsRow.qty}</TableCell>
                       <TableCell align="left">{detailsRow.sku}</TableCell>
-                      <TableCell component="th" scope="row">
-                        {detailsRow.color}
-                      </TableCell>
+                      <TableCell align="left">{detailsRow.color}</TableCell>
                       <TableCell align="left">{detailsRow.category}</TableCell>
                       <TableCell align="left">{detailsRow.age}</TableCell>
 
@@ -168,6 +170,7 @@ const tableHeader = {
   fontSize: "16px",
   fontWeight: "bold",
   color: "white",
+  padding: "10px",
 };
 
 export default function CollapsibleTable() {
@@ -177,22 +180,22 @@ export default function CollapsibleTable() {
         <TableHead>
           <TableRow style={{ backgroundColor: "#202020" }}>
             <TableCell />
-            <TableCell className="tableHeader" style={tableHeader} align="left">
+            <TableCell align="left" style={tableHeader}>
               Listing Title
             </TableCell>
-            {/* <TableCell className="tableHeader" style={tableHeader} align="left">
+            {/* <TableCell style={tableHeader} align="left">
               Cost
             </TableCell> */}
-            <TableCell className="tableHeader" style={tableHeader} align="left">
+            <TableCell style={tableHeader} align="left">
               Price
             </TableCell>
-            <TableCell className="tableHeader" style={tableHeader} align="left">
+            <TableCell style={tableHeader} align="left">
               Age
             </TableCell>
-            {/* <TableCell className="tableHeader" style={tableHeader} align="left">
+            {/* <TableCell style={tableHeader} align="left">
               Sku
             </TableCell> */}
-            <TableCell className="tableHeader" style={tableHeader} align="left">
+            <TableCell style={tableHeader} align="left">
               Brand
             </TableCell>
           </TableRow>
