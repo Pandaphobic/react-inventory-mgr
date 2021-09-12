@@ -22,6 +22,10 @@ const useRowStyles = makeStyles({
       borderBottom: "unset",
     },
   },
+  TableCell: {
+    fontWeight: "600",
+    padding: "8px",
+  },
 });
 
 function createData(
@@ -93,16 +97,18 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell style={{ padding: "2px" }}>{row.title}</TableCell>
+        <TableCell className={classes.TableCell} style={{ padding: "2px" }}>
+          {row.title}
+        </TableCell>
         {/* <TableCell style={{ padding: "2px" }} align="left">{row.cost}</TableCell> */}
-        <TableCell style={{ padding: "2px" }} align="left">
+        <TableCell className={classes.TableCell} align="left">
           {row.price}
         </TableCell>
-        <TableCell style={{ padding: "2px" }} align="left">
+        <TableCell className={classes.TableCell} align="left">
           {row.age}
         </TableCell>
         {/* <TableCell style={{ padding: "2px" }} align="left">{row.sku}</TableCell> */}
-        <TableCell style={{ padding: "2px" }} align="left">
+        <TableCell className={classes.TableCell} align="left">
           {row.brand}
         </TableCell>
       </TableRow>
