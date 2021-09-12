@@ -2,7 +2,7 @@
 import CollapsibleTable from "./components/CollapsibleTable";
 import { Container } from "@material-ui/core";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
-import Header from "./components/Header.js";
+import NavBarTop from "./components/AppBar.js";
 
 const theme = createTheme({
   typography: {
@@ -16,9 +16,10 @@ function App() {
     <div className="App">
       <MuiThemeProvider theme={theme}>
         <Container>
-          <Header />
+          <NavBarTop />
           <CollapsibleTable />
         </Container>
+
         {/* <DataTable /> */}
       </MuiThemeProvider>
     </div>

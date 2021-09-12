@@ -171,16 +171,17 @@ const tableHeader = {
   fontSize: "16px",
   fontWeight: "bold",
   color: "white",
+  paddingLeft: "0px",
 };
 
 export default function CollapsibleTable() {
   return (
     <TableContainer component={Paper}>
-      <Table StickyHeader aria-label="collapsible table">
+      <Table aria-label="collapsible table">
         <TableHead borderRadius="0px">
           <TableRow style={{ backgroundColor: "#202020" }}>
             <TableCell />
-            <TableCell align="left" style={tableHeader}>
+            <TableCell align="Left" style={tableHeader}>
               Listing Title
             </TableCell>
             {/* <TableCell style={tableHeader} align="left">
