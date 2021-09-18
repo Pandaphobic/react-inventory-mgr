@@ -119,6 +119,7 @@ function Row(props) {
               <Typography variant="h6" gutterBottom component="div">
                 Details
               </Typography>
+
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
