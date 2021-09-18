@@ -6,6 +6,7 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import { IconButton } from "@material-ui/core";
 
 // ICONS
 import MenuIcon from "@material-ui/icons/Menu";
@@ -87,7 +88,9 @@ export default function TemporaryDrawer() {
 
   return (
     <React.Fragment key="left">
-      <MenuIcon onClick={toggleDrawer("left", true)} />
+      <IconButton onClick={toggleDrawer("left", true)}>
+        <MenuIcon />
+      </IconButton>
       <Drawer
         anchor={"left"}
         open={state["left"]}

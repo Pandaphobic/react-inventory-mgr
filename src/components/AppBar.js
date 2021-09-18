@@ -6,10 +6,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Container from "@material-ui/core/Container";
 import Slide from "@material-ui/core/Slide";
-import { IconButton } from "@material-ui/core";
 import InputBase from "@material-ui/core/InputBase";
 import { alpha, makeStyles } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import TemporaryDrawer from "../components/DrawerMenu";
 
@@ -88,14 +86,7 @@ export default function NavBarTop(props) {
         <Container>
           <AppBar style={{ boxShadow: "none" }} color="default">
             <Toolbar>
-              <IconButton
-                edge="start"
-                className={classes.menuButton}
-                color="inherit"
-                aria-label="open drawer"
-              >
-                <TemporaryDrawer />
-              </IconButton>
+              <TemporaryDrawer aria-label="open drawer" />
 
               <Typography className={classes.title} variant="h6" noWrap>
                 Inventory Manager
