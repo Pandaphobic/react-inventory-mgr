@@ -15,6 +15,7 @@ import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import INVENTORY from "../json/inventory.json";
+import uuid from "react-uuid";
 
 const useRowStyles = makeStyles({
   root: {
@@ -28,18 +29,31 @@ const useRowStyles = makeStyles({
   },
 });
 
+function removeNonNumbers(priceWithLetters) {
+  const number = parseFloat(priceWithLetters.slice(2)).toFixed(2);
+  return number;
+}
+
 function createData(
   title,
-  cost,
-  price,
-  age,
+  costBefore,
+  priceBefore,
+  ageBefore,
   sku,
   brand,
   color,
   category,
   qtyAvailable,
-  listingDate
+  listingDate,
+  idBefore
 ) {
+  // const priceLettersRemoved = removeNonNumbers(priceBefore);
+
+  const id = idBefore > 0 ? idBefore : uuid();
+  const cost = costBefore.length > 0 ? parseInt(costBefore) : 0;
+  const price = priceBefore ? removeNonNumbers(priceBefore) : 0;
+  const age = ageBefore ? parseInt(ageBefore) : 0;
+
   return {
     title,
     cost,
@@ -48,16 +62,15 @@ function createData(
     sku,
     brand,
     details: [{ age, cost, color, category, qty: qtyAvailable, listingDate }],
+    id,
   };
 }
 
-const rows = [];
+const rowsFromJson = [];
 
 function importJSON(inv) {
-  const inventory = inv;
-
-  inventory.forEach(item => {
-    rows.push(
+  inv.forEach(item => {
+    rowsFromJson.push(
       createData(
         item["Listing Title"],
         item["Cost Price"],
@@ -68,7 +81,8 @@ function importJSON(inv) {
         item["Color"],
         item["Category"],
         item["Quantity Available"],
-        item["Listing Date"]
+        item["Listing Date"],
+        item["ID"]
       )
     );
   });
@@ -102,7 +116,7 @@ function Row(props) {
         </TableCell>
         {/* <TableCell style={{ padding: "2px" }} align="left">{row.cost}</TableCell> */}
         <TableCell className={classes.TableCell} align="left">
-          {row.price}
+          {`C$${row.price}`}
         </TableCell>
         <TableCell className={classes.TableCell} align="left">
           {row.age}
@@ -122,7 +136,7 @@ function Row(props) {
 
               <Table size="small" aria-label="purchases">
                 <TableHead>
-                  <TableRow>
+                  <TableRow key={uuid()}>
                     <TableCell align="left">Qty</TableCell>
                     <TableCell align="left">Sku</TableCell>
                     <TableCell align="left">Color</TableCell>
@@ -134,7 +148,7 @@ function Row(props) {
                 </TableHead>
                 <TableBody>
                   {row.details.map(detailsRow => (
-                    <TableRow key={detailsRow.title}>
+                    <TableRow key={uuid()}>
                       <TableCell align="left">{detailsRow.qty}</TableCell>
                       <TableCell align="left">{detailsRow.sku}</TableCell>
                       <TableCell align="left">{detailsRow.color}</TableCell>
@@ -158,19 +172,19 @@ function Row(props) {
 
 Row.propTypes = {
   row: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     cost: PropTypes.number.isRequired,
     age: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
+    price: PropTypes.any.isRequired,
     details: PropTypes.arrayOf(
       PropTypes.shape({
         color: PropTypes.string.isRequired,
-        customerId: PropTypes.string.isRequired,
-        qty: PropTypes.string.isRequired,
+        qty: PropTypes.number.isRequired,
       })
     ).isRequired,
     title: PropTypes.string.isRequired,
-    brand: PropTypes.number.isRequired,
-    sku: PropTypes.number.isRequired,
+    brand: PropTypes.string.isRequired,
+    sku: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -185,10 +199,10 @@ export default function CollapsibleTable() {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
-        <TableHead borderRadius="0px">
+        <TableHead>
           <TableRow style={{ backgroundColor: "#202020" }}>
             <TableCell />
-            <TableCell align="Left" style={tableHeader}>
+            <TableCell align="left" style={tableHeader}>
               Listing Title
             </TableCell>
             {/* <TableCell style={tableHeader} align="left">
@@ -209,8 +223,8 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
-            <Row key={row.title} row={row} />
+          {rowsFromJson.map(row => (
+            <Row key={row.id} row={row} />
           ))}
         </TableBody>
       </Table>
