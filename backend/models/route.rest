@@ -31,7 +31,7 @@ Content-Type: application/json
 
 ### DELETE ITEM
 
-DELETE http://localhost:3070/items/614765acef35a19ae26fde1d
+DELETE http://localhost:3070/items/6147696b3a3b4717350d1820
 
 ### UPDATE ITEM
 PATCH http://localhost:3070/items/614765acef35a19ae26fde1d

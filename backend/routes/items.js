@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const Item = require("../models/item")
 
-// Get All
+// Get All Items
 router.get("/", async (req, res) => {
   try {
     const items = await Item.find()
@@ -11,12 +11,12 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: err.message })
   }
 })
-// Get Single
+// Get Single Item By ID
 router.get("/:id", getItem, (req, res) => {
   res.send(res.item)
 })
 
-// Create Single
+// Create Single Item
 router.post("/", async (req, res) => {
   const item = new Item({
     "Listing Date": req.body["Listing Date"],
@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
   }
 })
 
-// Update Single
+// Update Single - Only Changed Values
 router.patch("/:id", getItem, async (req, res) => {
   console.log(req.body)
   if (req.body["Listing Date"] != null) {
@@ -105,7 +105,7 @@ router.patch("/:id", getItem, async (req, res) => {
   }
 })
 
-// Delete Single
+// Delete Single By ID
 router.delete("/:id", getItem, async (req, res) => {
   try {
     await res.item.remove()
@@ -115,6 +115,7 @@ router.delete("/:id", getItem, async (req, res) => {
   }
 })
 
+// Get Item Middleware
 async function getItem(req, res, next) {
   let item
   try {
