@@ -1,8 +1,7 @@
 {
   "Listing Date": "12/27/2020",
-  "Days Listed": { "$numberInt": "258" },
-  "Listing SKU": "",
-  "Item SKU": "",
+  "Listing SKU": "nothere",
+  "Item SKU": "nothere",
   "Listing Title": "BNWOT Black Coat/Blazer",
   "Department": "Women",
   "Category": "Jackets & Coats",
@@ -10,12 +9,10 @@
   "Brand": "Old Navy",
   "Color": "Black",
   "Size": "M",
-  "NWT": "Y",
-  "Quantity Available": { "$numberInt": "1" },
-  "Likes": { "$numberInt": "8" },
-  "Cost Price": "",
-  "Lowest Listed Price": "C$19.00",
-  "Current Listing Price": "C$19.00",
+  "Quantity Available": 1,
+  "Cost Price": 3,
+  "Lowest Listed Price": 19,
+  "Current Listing Price": 19,
   "Other Info": "",
   "Seller Shipping Discount": ""
 }
