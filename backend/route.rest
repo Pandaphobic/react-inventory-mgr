@@ -1,1 +1,30 @@
-GET http://localhost:5000/items
+GET http://localhost:3070/items
+
+###
+
+GET http://localhost:3070/items/12
+
+###
+
+POST http://localhost:3070/items
+Content-Type: application/json
+
+{
+  "Listing Date": "12/27/2020",
+  "Listing SKU": "nothere",
+  "Item SKU": "nothere",
+  "Listing Title": "BNWOT Black Coat/Blazer",
+  "Department": "Women",
+  "Category": "Jackets & Coats",
+  "Subcategory": "",
+  "Brand": "Old Navy",
+  "Color": "Black",
+  "Size": "M",
+  "Quantity Available": 1,
+  "Cost Price": 3,
+  "Lowest Listed Price": 19,
+  "Current Listing Price": 19,
+  "Other Info": "",
+  "Seller Shipping Discount": ""
+}
+
