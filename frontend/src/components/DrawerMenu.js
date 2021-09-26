@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -11,6 +11,8 @@ import { Typography } from "@material-ui/core";
 import { Modal } from "@material-ui/core";
 import UploadJSON from "./UploadComponent";
 
+import { Context } from "../contexts/Store";
+
 // ICONS
 import { IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -20,6 +22,8 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import PublishIcon from "@material-ui/icons/Publish";
 import CloudOffIcon from "@material-ui/icons/CloudOff";
 import GetAppIcon from "@material-ui/icons/GetApp";
+
+var FileSaver = require("file-saver");
 
 const useStyles = makeStyles({
   list: {
@@ -44,12 +48,37 @@ const modalStyle = {
 
 // ******** DRAWER ******** //
 export default function TemporaryDrawer() {
+  const [inventoryState, setInventoryState] = useContext(Context);
+
   const [openModal, setOpenModal] = React.useState(false);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
 
+  // const TextFile = () => {
+  //   const element = document.createElement("a");
+  //   const file = new Blob(
+  //     ,
+  //     {
+  //       type: "text/plain",
+  //     }
+  //   );
+  //   element.href = URL.createObjectURL(file);
+  //   element.download = "myFile.json";
+  //   document.body.appendChild(JSON.stringify(inventoryState["inventory"])); // Required for this to work in FireFox
+  //   element.click();
+  // };
+
+  const handleExport = () => {
+    console.log(JSON.stringify(JSON.stringify(inventoryState["inventory"])));
+    var blob = new Blob([`${JSON.stringify(inventoryState["inventory"])}`], {
+      type: "text/plain;charset=utf-8",
+    });
+    FileSaver.saveAs(blob, "exported_JSON.json");
+    // TextFile();
+  };
+
   const classes = useStyles();
-  const [state, setState] = React.useState({
+  const [drawerState, setDrawerState] = React.useState({
     left: false,
   });
 
@@ -61,7 +90,7 @@ export default function TemporaryDrawer() {
       return;
     }
 
-    setState({ ...state, [anchor]: open });
+    setDrawerState({ ...drawerState, [anchor]: open });
   };
 
   const list = anchor => (
@@ -81,7 +110,7 @@ export default function TemporaryDrawer() {
           <ListItemText primary={"Import"} />
         </ListItem>
 
-        <ListItem button key={"export"}>
+        <ListItem onClick={handleExport} button key={"export"}>
           <ListItemIcon>
             <PublishIcon />
           </ListItemIcon>
@@ -119,7 +148,7 @@ export default function TemporaryDrawer() {
       </IconButton>
       <Drawer
         anchor={"left"}
-        open={state["left"]}
+        open={drawerState["left"]}
         onClose={toggleDrawer("left", false)}
       >
         {list("left")}

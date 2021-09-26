@@ -30,6 +30,7 @@ export default function UploadComponent() {
   const handleYes = () => {
     if (files.length > 0) {
       setState({ inventory: JSON.parse(files) });
+      setFiles("");
     }
   };
   const handleNo = () => {
