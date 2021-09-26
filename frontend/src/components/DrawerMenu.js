@@ -1,7 +1,6 @@
 import React from "react";
 import clsx from "clsx";
 import { useState } from "react";
-
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -11,6 +10,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { Box } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
 import { Modal } from "@material-ui/core";
+import UploadJSON from "./UploadComponent";
 
 // ICONS
 import { IconButton } from "@material-ui/core";
@@ -43,26 +43,7 @@ const modalStyle = {
   p: 4,
 };
 
-export function UploadJSON({ children }) {
-  const [files, setFiles] = useState("");
-
-  const handleChange = e => {
-    const fileReader = new FileReader();
-    fileReader.readAsText(e.target.files[0], "UTF-8");
-    fileReader.onload = e => {
-      console.log("e.target.result", e.target.result);
-      setFiles(e.target.result);
-    };
-  };
-  return (
-    <>
-      <input type="file" onChange={handleChange} />
-      <br />
-      {"uploaded file content -- " + files}
-    </>
-  );
-}
-
+// ******** DRAWER ******** //
 export default function TemporaryDrawer() {
   const [openModal, setOpenModal] = React.useState(false);
   const handleOpenModal = () => setOpenModal(true);

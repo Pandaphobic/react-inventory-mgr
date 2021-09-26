@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 
 // Misc Elements
@@ -27,6 +27,7 @@ import uuid from "react-uuid";
 
 // Files
 import INVENTORY from "../json/inventory.json";
+import { Context } from "../contexts/Store";
 
 const useRowStyles = makeStyles({
   root: {
@@ -99,8 +100,6 @@ function importJSON(inv) {
     );
   });
 }
-
-importJSON(INVENTORY);
 
 function Row(props) {
   const { row } = props;
@@ -207,7 +206,13 @@ const tableHeader = {
   paddingLeft: "0px",
 };
 
-export default function CollapsibleTable() {
+export default function CollapsibleTable(props) {
+  const [state, useState] = useContext(Context);
+
+  if (state.inventory !== []) {
+    importJSON(state.inventory);
+  }
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">

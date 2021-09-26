@@ -1,0 +1,18 @@
+Notes: 
+
+Global State with Context in React
+
+create-react-app
+
+
+Context:
+- has a stateObject
+- export const Context
+- React.createContext()
+- create component that wraps application to provide state (store)
+  - create state with useState and stateObject as default
+  - return ( 
+    <Context.Provider value={[state, setState]}>{children}</Context.Provider>
+    )
+
+export default store
