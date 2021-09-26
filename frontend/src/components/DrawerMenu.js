@@ -1,21 +1,26 @@
 import React from "react";
 import clsx from "clsx";
+import { useState } from "react";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import { IconButton } from "@material-ui/core";
+import { Box } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
+import { Modal } from "@material-ui/core";
 
 // ICONS
+import { IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import SettingsIcon from "@material-ui/icons/Settings";
-import GetAppIcon from "@material-ui/icons/GetApp";
 import PublishIcon from "@material-ui/icons/Publish";
 import CloudOffIcon from "@material-ui/icons/CloudOff";
+import GetAppIcon from "@material-ui/icons/GetApp";
 
 const useStyles = makeStyles({
   list: {
@@ -26,7 +31,43 @@ const useStyles = makeStyles({
   },
 });
 
+const modalStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+export function UploadJSON({ children }) {
+  const [files, setFiles] = useState("");
+
+  const handleChange = e => {
+    const fileReader = new FileReader();
+    fileReader.readAsText(e.target.files[0], "UTF-8");
+    fileReader.onload = e => {
+      console.log("e.target.result", e.target.result);
+      setFiles(e.target.result);
+    };
+  };
+  return (
+    <>
+      <input type="file" onChange={handleChange} />
+      <br />
+      {"uploaded file content -- " + files}
+    </>
+  );
+}
+
 export default function TemporaryDrawer() {
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false,
@@ -53,14 +94,19 @@ export default function TemporaryDrawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Import", "Export"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index === 1 ? <PublishIcon /> : <GetAppIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem onClick={handleOpenModal} button key={"import"}>
+          <ListItemIcon>
+            <GetAppIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Import"} />
+        </ListItem>
+
+        <ListItem button key={"export"}>
+          <ListItemIcon>
+            <PublishIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Export"} />
+        </ListItem>
       </List>
       <Divider />
       <List>
@@ -98,6 +144,21 @@ export default function TemporaryDrawer() {
       >
         {list("left")}
       </Drawer>
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={modalStyle}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Upload Json file
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <UploadJSON />
+          </Typography>
+        </Box>
+      </Modal>
     </React.Fragment>
   );
 }

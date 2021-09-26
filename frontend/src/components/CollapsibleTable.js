@@ -1,21 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
+
+// Misc Elements
 import Box from "@material-ui/core/Box";
 import Collapse from "@material-ui/core/Collapse";
-import IconButton from "@material-ui/core/IconButton";
+
+// Style
+import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+
+// Style
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
+
+// Icons
+import IconButton from "@material-ui/core/IconButton";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import INVENTORY from "../json/inventory.json";
+
 import uuid from "react-uuid";
+
+// Files
+import INVENTORY from "../json/inventory.json";
 
 const useRowStyles = makeStyles({
   root: {
@@ -49,6 +60,7 @@ function createData(
 ) {
   // const priceLettersRemoved = removeNonNumbers(priceBefore);
 
+  // "Sanitize" and ID each item
   const id = idBefore > 0 ? idBefore : uuid();
   const cost = costBefore.length > 0 ? parseInt(costBefore) : 0;
   const price = priceBefore ? removeNonNumbers(priceBefore) : 0;
@@ -67,8 +79,8 @@ function createData(
 }
 
 const rowsFromJson = [];
-
 function importJSON(inv) {
+  console.log(inv);
   inv.forEach(item => {
     rowsFromJson.push(
       createData(
