@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, Container, Grid } from "@material-ui/core";
 import React, { useContext, useState } from "react";
 import { Context } from "../contexts/Store";
 
@@ -32,21 +32,41 @@ export default function UploadComponent() {
       setState({ inventory: JSON.parse(files) });
     }
   };
+  const handleNo = () => {
+    setFiles("");
+  };
 
   return (
     <>
       <UploadJSON />
       {/* <p>{JSON.stringify(state.inventory)}</p> */}
-      <p>
-        Would you like to upload <strong>{filename}</strong>?
-      </p>
-      <Button
-        disabled={files.length == 0 ? true : false}
-        variant="outlined"
-        onClick={handleYes}
-      >
-        Yes
-      </Button>
+
+      {files.length > 0 ? (
+        <>
+          <p>
+            Would you like to upload <strong>{filename}</strong>?
+          </p>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <Button fullWidth variant="outlined" onClick={handleNo}>
+                No
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                fullWidth
+                disabled={files.length == 0 ? true : false}
+                variant="outlined"
+                onClick={handleYes}
+              >
+                Yes
+              </Button>
+            </Grid>
+          </Grid>
+        </>
+      ) : (
+        <></>
+      )}
     </>
   );
 }
