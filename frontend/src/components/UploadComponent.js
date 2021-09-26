@@ -1,4 +1,4 @@
-import { Button, Container, Grid } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import React, { useContext, useState } from "react";
 import { Context } from "../contexts/Store";
 
@@ -55,7 +55,7 @@ export default function UploadComponent() {
             <Grid item xs={6}>
               <Button
                 fullWidth
-                disabled={files.length == 0 ? true : false}
+                disabled={files.length === 0 ? true : false}
                 variant="outlined"
                 onClick={handleYes}
               >

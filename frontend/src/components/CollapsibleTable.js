@@ -26,7 +26,7 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import uuid from "react-uuid";
 
 // Files
-import INVENTORY from "../json/inventory.json";
+// import INVENTORY from "../json/inventory.json";
 import { Context } from "../contexts/Store";
 
 const useRowStyles = makeStyles({
@@ -207,7 +207,7 @@ const tableHeader = {
 };
 
 export default function CollapsibleTable(props) {
-  const [state, useState] = useContext(Context);
+  const [state, setState] = useContext(Context);
 
   if (state.inventory !== []) {
     importJSON(state.inventory);
