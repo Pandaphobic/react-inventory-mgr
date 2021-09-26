@@ -206,10 +206,11 @@ const tableHeader = {
   paddingLeft: "0px",
 };
 
-export default function CollapsibleTable(props) {
+export default function CollapsibleTable() {
   const [state, setState] = useContext(Context);
 
   if (state.inventory !== []) {
+    console.log(state);
     importJSON(state.inventory);
   }
 

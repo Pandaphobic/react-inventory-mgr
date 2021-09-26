@@ -54,22 +54,8 @@ export default function TemporaryDrawer() {
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
 
-  // const TextFile = () => {
-  //   const element = document.createElement("a");
-  //   const file = new Blob(
-  //     ,
-  //     {
-  //       type: "text/plain",
-  //     }
-  //   );
-  //   element.href = URL.createObjectURL(file);
-  //   element.download = "myFile.json";
-  //   document.body.appendChild(JSON.stringify(inventoryState["inventory"])); // Required for this to work in FireFox
-  //   element.click();
-  // };
-
   const handleExport = () => {
-    console.log(JSON.stringify(JSON.stringify(inventoryState["inventory"])));
+    // console.log(JSON.stringify(JSON.stringify(inventoryState["inventory"])));
     var blob = new Blob([`${JSON.stringify(inventoryState["inventory"])}`], {
       type: "text/plain;charset=utf-8",
     });
@@ -136,6 +122,10 @@ export default function TemporaryDrawer() {
             <CloudOffIcon />
           </ListItemIcon>
           <ListItemText primary="Offline Mode" />
+        </ListItem>
+        <Divider />
+        <ListItem button key="Version Number">
+          <ListItemText primary={`${inventoryState["version"]}`} />
         </ListItem>
       </List>
     </div>

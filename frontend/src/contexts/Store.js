@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const initialState = {
   inventory: [],
+  version: "0.0.1 Beta",
 };
 
 export const Context = React.createContext();

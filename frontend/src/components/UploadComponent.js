@@ -8,13 +8,13 @@ export default function UploadComponent() {
   const [filename, setFilename] = useState("");
 
   // *********** FILE HANDLING ********* //
-  function UploadJSON({ children }) {
+  function UploadJSON() {
     const handleChange = e => {
       const fileReader = new FileReader();
       setFilename(e.target.files[0].name);
       fileReader.readAsText(e.target.files[0], "UTF-8");
       fileReader.onload = e => {
-        console.log("e.target.result", e.target.result);
+        // console.log("e.target.result", e.target.result);
         setFiles(e.target.result);
       };
     };
@@ -29,7 +29,8 @@ export default function UploadComponent() {
 
   const handleYes = () => {
     if (files.length > 0) {
-      setState({ inventory: JSON.parse(files) });
+      setState({ ...state, inventory: JSON.parse(files) });
+
       setFiles("");
     }
   };
@@ -44,10 +45,11 @@ export default function UploadComponent() {
 
       {files.length > 0 ? (
         <>
-          <p>
-            Would you like to upload <strong>{filename}</strong>?
-          </p>
           <Grid container spacing={2}>
+            <Grid item xs={12}>
+              Would you like to upload {filename}?
+            </Grid>
+
             <Grid item xs={6}>
               <Button fullWidth variant="outlined" onClick={handleNo}>
                 No
