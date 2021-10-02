@@ -1,71 +1,59 @@
-import React, { useContext } from "react";
-import PropTypes from "prop-types";
+import React, { useContext } from "react"
+import PropTypes from "prop-types"
 
 // Misc Elements
-import Box from "@material-ui/core/Box";
-import Collapse from "@material-ui/core/Collapse";
+import Box from "@mui/material/Box"
+import Collapse from "@mui/material/Collapse"
 
 // Style
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
+import { makeStyles } from "@mui/styles"
+import Table from "@mui/material/Table"
+import TableBody from "@mui/material/TableBody"
+import TableCell from "@mui/material/TableCell"
+import TableContainer from "@mui/material/TableContainer"
+import TableHead from "@mui/material/TableHead"
+import TableRow from "@mui/material/TableRow"
 
 // Style
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
+import Typography from "@mui/material/Typography"
+import Paper from "@mui/material/Paper"
 
 // Icons
-import IconButton from "@material-ui/core/IconButton";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import IconButton from "@mui/material/IconButton"
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
 
-import uuid from "react-uuid";
+import uuid from "react-uuid"
 
 // Files
 // import INVENTORY from "../json/inventory.json";
-import { Context } from "../contexts/Store";
+import { Context } from "../contexts/StoreContext"
 
 const useRowStyles = makeStyles({
   root: {
     "& > *": {
-      borderBottom: "unset",
-    },
+      borderBottom: "unset"
+    }
   },
   TableCell: {
     fontWeight: "600",
-    padding: "8px",
-  },
-});
+    padding: "8px"
+  }
+})
 
 function removeNonNumbers(priceWithLetters) {
-  const number = parseFloat(priceWithLetters.slice(2)).toFixed(2);
-  return number;
+  const number = parseFloat(priceWithLetters.slice(2)).toFixed(2)
+  return number
 }
 
-function createData(
-  title,
-  costBefore,
-  priceBefore,
-  ageBefore,
-  sku,
-  brand,
-  color,
-  category,
-  qtyAvailable,
-  listingDate,
-  idBefore
-) {
+function createData(title, costBefore, priceBefore, ageBefore, sku, brand, color, category, qtyAvailable, listingDate, idBefore) {
   // const priceLettersRemoved = removeNonNumbers(priceBefore);
 
   // "Sanitize" and ID each item
-  const id = idBefore > 0 ? idBefore : uuid();
-  const cost = costBefore.length > 0 ? parseInt(costBefore) : 0;
-  const price = priceBefore ? removeNonNumbers(priceBefore) : 0;
-  const age = ageBefore ? parseInt(ageBefore) : 0;
+  const id = idBefore > 0 ? idBefore : uuid()
+  const cost = costBefore.length > 0 ? parseInt(costBefore) : 0
+  const price = priceBefore ? removeNonNumbers(priceBefore) : 0
+  const age = ageBefore ? parseInt(ageBefore) : 0
 
   return {
     title,
@@ -75,50 +63,28 @@ function createData(
     sku,
     brand,
     details: [{ age, cost, color, category, qty: qtyAvailable, listingDate }],
-    id,
-  };
+    id
+  }
 }
 
-const rowsFromJson = [];
+const rowsFromJson = []
 function importJSON(inv) {
-  console.log(inv);
+  console.log(inv)
   inv.forEach(item => {
-    rowsFromJson.push(
-      createData(
-        item["Listing Title"],
-        item["Cost Price"],
-        item["Current Listing Price"],
-        item["Days Listed"],
-        item["Listing SKU"],
-        item["Brand"],
-        item["Color"],
-        item["Category"],
-        item["Quantity Available"],
-        item["Listing Date"],
-        item["ID"]
-      )
-    );
-  });
+    rowsFromJson.push(createData(item["Listing Title"], item["Cost Price"], item["Current Listing Price"], item["Days Listed"], item["Listing SKU"], item["Brand"], item["Color"], item["Category"], item["Quantity Available"], item["Listing Date"], item["ID"]))
+  })
 }
 
 function Row(props) {
-  const { row } = props;
-  const [open, setOpen] = React.useState(false);
-  const classes = useRowStyles();
+  const { row } = props
+  const [open, setOpen] = React.useState(false)
+  const classes = useRowStyles()
 
   return (
     <React.Fragment>
-      <TableRow
-        onClick={() => setOpen(!open)}
-        style={{ cursor: "pointer" }}
-        className={classes.root}
-      >
+      <TableRow onClick={() => setOpen(!open)} style={{ cursor: "pointer" }} className={classes.root}>
         <TableCell style={{ padding: "2px" }}>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
+          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
@@ -166,9 +132,7 @@ function Row(props) {
                       <TableCell align="left">{detailsRow.category}</TableCell>
                       <TableCell align="left">{detailsRow.cost}</TableCell>
                       <TableCell align="left">{detailsRow.age}</TableCell>
-                      <TableCell align="right">
-                        {detailsRow.listingDate}
-                      </TableCell>
+                      <TableCell align="right">{detailsRow.listingDate}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -178,7 +142,7 @@ function Row(props) {
         </TableCell>
       </TableRow>
     </React.Fragment>
-  );
+  )
 }
 
 Row.propTypes = {
@@ -190,28 +154,28 @@ Row.propTypes = {
     details: PropTypes.arrayOf(
       PropTypes.shape({
         color: PropTypes.string.isRequired,
-        qty: PropTypes.number.isRequired,
+        qty: PropTypes.number.isRequired
       })
     ).isRequired,
     title: PropTypes.string.isRequired,
     brand: PropTypes.string.isRequired,
-    sku: PropTypes.string.isRequired,
-  }).isRequired,
-};
+    sku: PropTypes.string.isRequired
+  }).isRequired
+}
 
 const tableHeader = {
   fontSize: "16px",
   fontWeight: "bold",
   color: "white",
-  paddingLeft: "0px",
-};
+  paddingLeft: "0px"
+}
 
 export default function CollapsibleTable() {
-  const [state, setState] = useContext(Context);
+  const [state, setState] = useContext(Context)
 
   if (state.inventory !== []) {
-    console.log(state);
-    importJSON(state.inventory);
+    console.log(state)
+    importJSON(state.inventory)
   }
 
   return (
@@ -247,5 +211,5 @@ export default function CollapsibleTable() {
         </TableBody>
       </Table>
     </TableContainer>
-  );
+  )
 }

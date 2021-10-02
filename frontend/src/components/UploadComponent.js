@@ -1,42 +1,42 @@
-import { Button, Grid } from "@material-ui/core";
-import React, { useContext, useState } from "react";
-import { Context } from "../contexts/Store";
+import { Button, Grid } from "@mui/material"
+import React, { useContext, useState } from "react"
+import { Context } from "../contexts/StoreContext"
 
 export default function UploadComponent() {
-  const [state, setState] = useContext(Context);
-  const [files, setFiles] = useState("");
-  const [filename, setFilename] = useState("");
+  const [state, setState] = useContext(Context)
+  const [files, setFiles] = useState("")
+  const [filename, setFilename] = useState("")
 
   // *********** FILE HANDLING ********* //
   function UploadJSON() {
     const handleChange = e => {
-      const fileReader = new FileReader();
-      setFilename(e.target.files[0].name);
-      fileReader.readAsText(e.target.files[0], "UTF-8");
+      const fileReader = new FileReader()
+      setFilename(e.target.files[0].name)
+      fileReader.readAsText(e.target.files[0], "UTF-8")
       fileReader.onload = e => {
         // console.log("e.target.result", e.target.result);
-        setFiles(e.target.result);
-      };
-    };
+        setFiles(e.target.result)
+      }
+    }
 
     return (
       <>
         <input type="file" onChange={handleChange} />
         <br />
       </>
-    );
+    )
   }
 
   const handleYes = () => {
     if (files.length > 0) {
-      setState({ ...state, inventory: JSON.parse(files) });
+      setState({ ...state, inventory: JSON.parse(files) })
 
-      setFiles("");
+      setFiles("")
     }
-  };
+  }
   const handleNo = () => {
-    setFiles("");
-  };
+    setFiles("")
+  }
 
   return (
     <>
@@ -56,12 +56,7 @@ export default function UploadComponent() {
               </Button>
             </Grid>
             <Grid item xs={6}>
-              <Button
-                fullWidth
-                disabled={files.length === 0 ? true : false}
-                variant="outlined"
-                onClick={handleYes}
-              >
+              <Button fullWidth disabled={files.length === 0 ? true : false} variant="outlined" onClick={handleYes}>
                 Yes
               </Button>
             </Grid>
@@ -71,5 +66,5 @@ export default function UploadComponent() {
         <></>
       )}
     </>
-  );
+  )
 }

@@ -1,11 +1,12 @@
 // import DataTable from "./components/DataTable";
 import CollapsibleTable from "./components/CollapsibleTable"
-import { Container } from "@material-ui/core"
-import { MuiThemeProvider, createTheme } from "@material-ui/core/styles"
+import { Container } from "@mui/material"
+import { ThemeProvider } from "@mui/styles"
+import { createTheme } from "@mui/material"
 import NavBarTop from "./components/AppBar.js"
-import StoreContext from "./contexts/Store"
+import StoreContext from "./contexts/StoreContext"
 import SignInSide from "./components/SignInSide"
-import SignUpSide from "./components/SignUpSide"
+import SignUp from "./components/SignUp"
 
 const theme = createTheme({
   typography: {
@@ -17,16 +18,16 @@ const theme = createTheme({
 function App() {
   return (
     <div className="App">
-      <MuiThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
         {/* <StoreContext>
           <Container>
             <NavBarTop />
             <CollapsibleTable />
           </Container>
         </StoreContext> */}
-        {/* <SignInSide /> */}
-        <SignUpSide />
-      </MuiThemeProvider>
+        <SignInSide />
+        <SignUp />
+      </ThemeProvider>
     </div>
   )
 }
