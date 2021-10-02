@@ -19,14 +19,14 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        {/* <StoreContext>
+        <StoreContext>
           <Container>
             <NavBarTop />
             <CollapsibleTable />
           </Container>
-        </StoreContext> */}
-        <SignInSide />
-        <SignUp />
+        </StoreContext>
+        {/* <SignInSide />
+        <SignUp /> */}
       </ThemeProvider>
     </div>
   )

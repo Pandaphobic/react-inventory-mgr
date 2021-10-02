@@ -11,6 +11,7 @@ import { makeStyles } from "@mui/styles"
 import { alpha } from "@mui/material/styles"
 import SearchIcon from "@mui/icons-material/Search"
 import TemporaryDrawer from "../components/DrawerMenu"
+import { IconButton } from "@mui/material"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -93,9 +94,9 @@ export default function NavBarTop(props) {
                 Inventory Manager
               </Typography>
               <div className={classes.search}>
-                <div className={classes.searchIcon}>
+                <IconButton sx={{ p: "10px" }} aria-label="search">
                   <SearchIcon />
-                </div>
+                </IconButton>
                 <InputBase
                   placeholder="Search…"
                   classes={{

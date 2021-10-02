@@ -18,7 +18,7 @@ function Copyright(props) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        MidHeavy.Tech
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -49,7 +49,7 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: "url(https://source.unsplash.com/random)",
+            backgroundImage: "url(https://source.unsplash.com/random/?clothes)",
             backgroundRepeat: "no-repeat",
             backgroundColor: t => (t.palette.mode === "light" ? t.palette.grey[50] : t.palette.grey[900]),
             backgroundSize: "cover",
