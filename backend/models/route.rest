@@ -14,7 +14,7 @@ Content-Type: application/json
   "Listing Date": "12/27/2020",
   "Listing SKU": "nothere",
   "Item SKU": "nothere",
-  "Listing Title": "BNWOT Black Coat/Blazer",
+  "Listing Title": "",
   "Department": "Women",
   "Category": "Jackets & Coats",
   "Subcategory": "",
@@ -31,7 +31,7 @@ Content-Type: application/json
 
 ### DELETE ITEM
 
-DELETE http://localhost:3070/items/6147696b3a3b4717350d1820
+DELETE http://localhost:3070/items/6147a20e98d4611edc5f8c4b
 
 ### UPDATE ITEM
 PATCH http://localhost:3070/items/614765acef35a19ae26fde1d

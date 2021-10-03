@@ -1,15 +1,16 @@
 import firebase from "firebase/compat/app"
 import "firebase/compat/auth"
-require("dotenv").config()
 
-const app = firebase.initializeApp({
+const firebaseConfig = {
   apiKey: "AIzaSyCFvk9XRd0Io2NoS-XCTq48cRvJnRMdTfU",
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID
-})
+  authDomain: "inventory-manager-dev-5f8df.firebaseapp.com",
+  projectId: "inventory-manager-dev-5f8df",
+  storageBucket: "inventory-manager-dev-5f8df.appspot.com",
+  messagingSenderId: "568526938786",
+  appId: "1:568526938786:web:832291fe115c131d4c2dfb"
+}
+
+const app = firebase.initializeApp(firebaseConfig)
 
 export const auth = app.auth()
 export default app

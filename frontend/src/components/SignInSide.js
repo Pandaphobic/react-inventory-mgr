@@ -1,17 +1,11 @@
-import * as React from "react"
-import Avatar from "@mui/material/Avatar"
-import Button from "@mui/material/Button"
-import CssBaseline from "@mui/material/CssBaseline"
-import TextField from "@mui/material/TextField"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Checkbox from "@mui/material/Checkbox"
-import Link from "@mui/material/Link"
-import Paper from "@mui/material/Paper"
-import Box from "@mui/material/Box"
-import Grid from "@mui/material/Grid"
+import React, { useState, useRef } from "react"
+import { TextField, Alert, Grid, Box, Paper, Link, Checkbox, FormControlLabel, CssBaseline, Button, Avatar } from "@mui/material"
+
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Typography from "@mui/material/Typography"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
+
+import { useAuth } from "../contexts/AuthContext"
 
 function Copyright(props) {
   return (
@@ -29,16 +23,26 @@ function Copyright(props) {
 const theme = createTheme()
 
 export default function SignInSide() {
-  const handleSubmit = event => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get("email"),
-      password: data.get("password")
-    })
-  }
+  const emailRef = useRef()
+  const passwordRef = useRef()
 
+  const { signup } = useAuth()
+  const [error, setError] = useState()
+  const [loading, setLoading] = useState(false)
+
+  const handleSubmit = async event => {
+    event.preventDefault()
+
+    try {
+      setError("")
+      setLoading(true)
+      await signup(emailRef.current.value, passwordRef.current.value)
+    } catch {
+      setError("Failed to create account")
+    }
+
+    setLoading(false)
+  }
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -72,11 +76,13 @@ export default function SignInSide() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
+            {error && <Alert severity="error">{error}</Alert>}
+
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-              <TextField margin="normal" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus />
-              <TextField margin="normal" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" />
+              <TextField margin="normal" inputRef={emailRef} required fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus />
+              <TextField margin="normal" inputRef={passwordRef} required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" />
               <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+              <Button disabled={loading} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Sign In
               </Button>
               <Grid container>
@@ -86,8 +92,8 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
+                  <Link to="/signup" variant="body2">
+                    {"Need an account? Sign Up"}
                   </Link>
                 </Grid>
               </Grid>

@@ -12,9 +12,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Typography from "@mui/material/Typography"
 import Container from "@mui/material/Container"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
+import { Alert } from "@mui/material"
 
 import { useAuth } from "../contexts/AuthContext"
-import { Alert } from "@mui/material"
 
 function Copyright(props) {
   return (
@@ -36,13 +36,13 @@ export default function SignUp() {
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
 
-  const { signup, currentUser } = useAuth()
+  const { signup } = useAuth()
   const [error, setError] = useState()
-  const [loading, setLoading] = useState()
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async event => {
     event.preventDefault()
-    console.log(passwordConfirmRef)
+
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match")
     }
@@ -77,7 +77,7 @@ export default function SignUp() {
             Sign up
           </Typography>
           {error && <Alert severity="error">{error}</Alert>}
-          {currentUser && currentUser.email}
+
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               {/* <Grid item xs={12} sm={6}>
@@ -87,16 +87,16 @@ export default function SignUp() {
                 <TextField required fullWidth id="lastName" label="Last Name" name="lastName" autoComplete="lname" />
               </Grid> */}
               <Grid item xs={12}>
-                <TextField required fullWidth id="email" ref={emailRef} label="Email Address" name="email" autoComplete="email" />
+                <TextField required fullWidth id="email" inputRef={emailRef} label="Email Address" name="email" autoComplete="email" />
               </Grid>
               <Grid item xs={12}>
-                <TextField required fullWidth name="password" ref={passwordRef} label="Password" type="password" id="password" autoComplete="new-password" />
+                <TextField required fullWidth name="password" inputRef={passwordRef} label="Password" type="password" id="password" autoComplete="new-password" />
               </Grid>
               <Grid item xs={12}>
-                <TextField required fullWidth name="password" ref={passwordConfirmRef} label="Password" type="password" id="password" autoComplete="new-password" />
+                <TextField required fullWidth name="password" inputRef={passwordConfirmRef} label="Password" type="password" id="password" autoComplete="new-password" />
               </Grid>
               <Grid item xs={12}>
-                {/* <FormControlLabel control={<Checkbox value="allowExtraEmails" color="primary" />} label="I want to receive inspiration, marketing promotions and updates via email." /> */}
+                <FormControlLabel control={<Checkbox value="allowExtraEmails" color="primary" />} label="I want to let MidHeavy abuse my mailbox 🔥" />
               </Grid>
             </Grid>
             <Button disabled={loading} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
