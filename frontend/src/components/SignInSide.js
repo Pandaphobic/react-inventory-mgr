@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react"
-import { TextField, Alert, Grid, Box, Paper, Link, Checkbox, FormControlLabel, CssBaseline, Button, Avatar } from "@mui/material"
+import { TextField, Alert, Grid, Box, Paper, Checkbox, FormControlLabel, CssBaseline, Button, Avatar } from "@mui/material"
+import { Link } from "react-router-dom"
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Typography from "@mui/material/Typography"
@@ -26,7 +27,7 @@ export default function SignInSide() {
   const emailRef = useRef()
   const passwordRef = useRef()
 
-  const { signup } = useAuth()
+  const { signin } = useAuth()
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
 
@@ -36,9 +37,11 @@ export default function SignInSide() {
     try {
       setError("")
       setLoading(true)
-      await signup(emailRef.current.value, passwordRef.current.value)
-    } catch {
-      setError("Failed to create account")
+      console.log(signin)
+      await signin(emailRef.current.value, passwordRef.current.value)
+    } catch (err) {
+      console.log(err)
+      console.log(signin)
     }
 
     setLoading(false)
@@ -92,7 +95,7 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link to="/signup" variant="body2">
+                  <Link to="/signup" href="#" variant="body2">
                     {"Need an account? Sign Up"}
                   </Link>
                 </Grid>
