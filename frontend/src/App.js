@@ -1,17 +1,17 @@
-import CollapsibleTable from "./components/CollapsibleTable"
-import { Container } from "@mui/material"
 import { ThemeProvider } from "@mui/styles"
 import { createTheme } from "@mui/material"
-import NavBarTop from "./components/AppBar.js"
+//CONTEXTS
+import { AuthProvider } from "./contexts/AuthContext"
 import StoreContext from "./contexts/StoreContext"
-import SignInSide from "./components/SignInSide"
+// COMPONENTS
 import SignUp from "./components/SignUp"
-import { AuthProvider, useAuth } from "./contexts/AuthContext"
-
+import SignInSide from "./components/SignInSide"
+import PrivateRoute from "./components/PrivateRoute"
+import ForgotPassword from "./components/ForgotPassword"
+//PAGES
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import DashboardPage from "./pages/DashboardPage"
 import ProfilePage from "./pages/ProfilePage"
-import PrivateRoute from "./components/PrivateRoute"
 
 const theme = createTheme({
   typography: {
@@ -32,6 +32,7 @@ function App() {
                 <Route path="/signup" component={SignUp} />
                 <Route path="/signin" component={SignInSide} />
                 <PrivateRoute path="/profile" component={ProfilePage} />
+                <Route path="/forgot-password" component={ForgotPassword} />
               </Switch>
             </StoreContext>
           </AuthProvider>

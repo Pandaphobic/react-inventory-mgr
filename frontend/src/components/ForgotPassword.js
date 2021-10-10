@@ -23,15 +23,14 @@ function Copyright(props) {
 
 const theme = createTheme()
 
-export default function SignInSide() {
+export default function ForgotPassword() {
   const emailRef = useRef()
-  const passwordRef = useRef()
 
-  const { signin } = useAuth()
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState("")
 
-  const { currentUser } = useAuth()
+  const { resetPassword, currentUser } = useAuth()
 
   const handleSubmit = async event => {
     event.preventDefault()
@@ -39,10 +38,10 @@ export default function SignInSide() {
     try {
       setError("")
       setLoading(true)
-      console.log(signin)
-      await signin(emailRef.current.value, passwordRef.current.value)
+      await resetPassword(emailRef.current.value)
+      setMessage("Check your inbox for further instructions")
     } catch (err) {
-      setError("Invalid Email/Password Combination")
+      setError("Failed to reset password")
     }
 
     setLoading(false)
@@ -79,26 +78,21 @@ export default function SignInSide() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Reset Password
             </Typography>
             {error && <Alert severity="error">{error}</Alert>}
+            {message && <Alert severity="success">{message}</Alert>}
 
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField margin="normal" inputRef={emailRef} required fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus />
-              <TextField margin="normal" inputRef={passwordRef} required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" />
-              <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+
               <Button disabled={loading} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                Sign In
+                Send Reset Link
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link to="/forgot-password" href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
+              <Grid container sx={{ alignContent: "center", flexDirection: "column" }}>
                 <Grid item>
-                  <Link to="/signup" href="#" variant="body2">
-                    {"Need an account? Sign Up"}
+                  <Link to="/signin" href="#" variant="body2">
+                    {"Already know your password? Sign In"}
                   </Link>
                 </Grid>
               </Grid>
