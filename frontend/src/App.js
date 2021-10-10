@@ -10,6 +10,8 @@ import { AuthProvider } from "./contexts/AuthContext"
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import DashboardPage from "./pages/DashboardPage"
+import ProfilePage from "./pages/ProfilePage"
+import PrivateRoute from "./components/PrivateRoute"
 
 const theme = createTheme({
   typography: {
@@ -26,9 +28,10 @@ function App() {
           <AuthProvider>
             <StoreContext>
               <Switch>
-                <Route exact path="/dashboard" component={DashboardPage} />
+                <PrivateRoute exact path="/dashboard" component={DashboardPage} />
                 <Route path="/signup" component={SignUp} />
                 <Route path="/signin" component={SignInSide} />
+                <PrivateRoute path="/profile" component={ProfilePage} />
               </Switch>
             </StoreContext>
           </AuthProvider>
