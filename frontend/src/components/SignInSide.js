@@ -42,8 +42,7 @@ export default function SignInSide() {
       console.log(signin)
       await signin(emailRef.current.value, passwordRef.current.value)
     } catch (err) {
-      console.log(err)
-      console.log(signin)
+      setError("Invalid Email/Password Combination")
     }
 
     setLoading(false)

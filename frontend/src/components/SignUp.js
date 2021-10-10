@@ -22,19 +22,19 @@ function Copyright(props) {
 const theme = createTheme()
 
 export default function SignUp() {
+  // Handle inputs
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
 
-  const { signup, signin } = useAuth()
+  const { signup, signin, currentUser } = useAuth()
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
-
-  const { currentUser } = useAuth()
 
   const handleSubmit = async event => {
     event.preventDefault()
 
+    // Sanitize Password
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match")
     }
@@ -48,7 +48,6 @@ export default function SignUp() {
     } catch {
       setError("Failed to create account")
     }
-
     setLoading(false)
   }
 
