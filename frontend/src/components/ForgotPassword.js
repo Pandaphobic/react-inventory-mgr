@@ -30,17 +30,18 @@ export default function ForgotPassword() {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState("")
 
-  const { resetPassword, currentUser } = useAuth()
+  const { resetPassword } = useAuth()
 
-  const handleSubmit = async event => {
-    event.preventDefault()
+  const handleSubmit = async e => {
+    e.preventDefault()
 
     try {
+      setMessage("")
       setError("")
       setLoading(true)
       await resetPassword(emailRef.current.value)
       setMessage("Check your inbox for further instructions")
-    } catch (err) {
+    } catch {
       setError("Failed to reset password")
     }
 
@@ -48,7 +49,6 @@ export default function ForgotPassword() {
   }
   return (
     <ThemeProvider theme={theme}>
-      {currentUser && <Redirect to="/profile" />}
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
