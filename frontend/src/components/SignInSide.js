@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react"
 import { TextField, Alert, Grid, Box, Paper, Checkbox, FormControlLabel, CssBaseline, Button, Avatar } from "@mui/material"
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Typography from "@mui/material/Typography"
@@ -31,6 +31,8 @@ export default function SignInSide() {
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
 
+  const { currentUser } = useAuth()
+
   const handleSubmit = async event => {
     event.preventDefault()
 
@@ -48,6 +50,7 @@ export default function SignInSide() {
   }
   return (
     <ThemeProvider theme={theme}>
+      {currentUser && <Redirect to="/profile" />}
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
 import { Alert, Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, TextField, Typography } from "@mui/material/"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
@@ -26,9 +26,11 @@ export default function SignUp() {
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
 
-  const { signup } = useAuth()
+  const { signup, signin } = useAuth()
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
+
+  const { currentUser } = useAuth()
 
   const handleSubmit = async event => {
     event.preventDefault()
@@ -42,6 +44,7 @@ export default function SignUp() {
       setLoading(true)
       console.log(signup)
       await signup(emailRef.current.value, passwordRef.current.value)
+      await signin(emailRef.current.value, passwordRef.current.value)
     } catch {
       setError("Failed to create account")
     }
@@ -51,6 +54,7 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={theme}>
+      {currentUser && <Redirect to="/profile" />}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

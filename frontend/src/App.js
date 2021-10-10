@@ -6,7 +6,7 @@ import NavBarTop from "./components/AppBar.js"
 import StoreContext from "./contexts/StoreContext"
 import SignInSide from "./components/SignInSide"
 import SignUp from "./components/SignUp"
-import { AuthProvider } from "./contexts/AuthContext"
+import { AuthProvider, useAuth } from "./contexts/AuthContext"
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import DashboardPage from "./pages/DashboardPage"
