@@ -1,9 +1,7 @@
 import React, { useState } from "react"
 import { Link, useHistory } from "react-router-dom"
-import CardMedia from "@mui/material/CardMedia"
-import IconButton from "@mui/material/IconButton"
 import Typography from "@mui/material/Typography"
-import { Button, Container, Alert, Box, Card, CardContent } from "@mui/material"
+import { Button, Container, Box, Card, CardContent, Alert } from "@mui/material"
 import { useAuth } from "../contexts/AuthContext"
 
 export default function ProfilePage() {
@@ -43,6 +41,7 @@ export default function ProfilePage() {
             </Typography>
           </CardContent>
           <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
+            {error && <Alert severity="error">{error}</Alert>}
             <Button onClick={handleLogout} variant="contained">
               LOGOUT
             </Button>

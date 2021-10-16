@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react"
-import { TextField, Alert, Grid, Box, Paper, Checkbox, FormControlLabel, CssBaseline, Button, Avatar } from "@mui/material"
-import { Link, Redirect } from "react-router-dom"
+import { TextField, Alert, Grid, Box, Paper, CssBaseline, Button, Avatar } from "@mui/material"
+import { Link } from "react-router-dom"
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Typography from "@mui/material/Typography"
