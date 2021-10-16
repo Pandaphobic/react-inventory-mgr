@@ -42,8 +42,11 @@ export default function SignUp() {
     try {
       setError("")
       setLoading(true)
-      console.log(signup)
-      await signup(emailRef.current.value, passwordRef.current.value)
+
+      await signup(emailRef.current.value, passwordRef.current.value).then(cred => {
+        // This is how to exposed the newly created userid / firebase unique identifier
+        console.log(cred.user.uid)
+      })
       await signin(emailRef.current.value, passwordRef.current.value)
     } catch {
       setError("Failed to create account")

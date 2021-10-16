@@ -1,4 +1,15 @@
 import React, { useState } from "react"
+import { database } from "../components/firebase"
+
+// Get Data from Database
+database
+  .collection("inventory")
+  .get()
+  .then(snapshot => {
+    snapshot.forEach(doc => {
+      console.log(doc.data())
+    })
+  })
 
 const initialState = {
   inventory: [],

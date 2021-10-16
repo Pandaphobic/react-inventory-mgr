@@ -28,7 +28,7 @@ function App() {
           <AuthProvider>
             <StoreContext>
               <Switch>
-                <PrivateRoute exact path="/dashboard" component={DashboardPage} />
+                <PrivateRoute exact path="/" component={DashboardPage} />
                 <Route path="/signup" component={SignUp} />
                 <Route path="/signin" component={SignInSide} />
                 <PrivateRoute path="/profile" component={ProfilePage} />
