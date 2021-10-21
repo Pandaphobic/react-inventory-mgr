@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { auth, database } from "../components/firebase"
+import { database } from "../components/firebase"
 
 const initialState = {
   inventory: [],
@@ -8,26 +8,20 @@ const initialState = {
 
 export const Context = React.createContext()
 
-const StoreContext = ({ children }) => {
-  const [state, setState] = useState(initialState)
-
-  // Get Data from Database
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      database
-        .collection("inventory")
-        .get()
-        .then(snapshot => {
-          setupInventory(snapshot)
-        })
-    }
+database
+  .collection("inventory")
+  .get()
+  .then(snapshot => {
+    const newInventory = snapshot.docs
+    newInventory.forEach(doc => {
+      initialState.inventory.push(doc.data())
+    })
   })
 
-  const setupInventory = docs => {
-    docs.forEach(doc => {
-      setState({ ...state, doc })
-    })
-  }
+console.log(initialState.inventory)
+
+const StoreContext = ({ children }) => {
+  const [state, setState] = useState(initialState)
 
   return <Context.Provider value={[state, setState]}>{children}</Context.Provider>
 }

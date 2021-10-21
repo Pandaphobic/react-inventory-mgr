@@ -49,7 +49,6 @@ const modalStyle = {
 // ******** DRAWER ******** //
 export default function TemporaryDrawer() {
   const [inventoryState, setInventoryState] = useContext(Context)
-  setInventoryState({ ...inventoryState })
 
   const [openModal, setOpenModal] = React.useState(false)
   const handleOpenModal = () => setOpenModal(true)

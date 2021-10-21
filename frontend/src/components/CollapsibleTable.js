@@ -173,8 +173,6 @@ const tableHeader = {
 export default function CollapsibleTable() {
   const [state, setState] = useContext(Context)
 
-  setState({ ...state })
-
   if (state.inventory !== []) {
     console.log(state)
     importJSON(state.inventory)
