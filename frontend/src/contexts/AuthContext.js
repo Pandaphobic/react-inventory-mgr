@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react"
-import { auth } from "../components/firebase"
+import { firebaseAuth, googleAuthProvider } from "../firebase/firebase-config"
 
 const AuthContext = React.createContext()
 
@@ -12,35 +12,48 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   function signup(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password)
+    return firebaseAuth.createUserWithEmailAndPassword(email, password)
   }
 
   function signin(email, password) {
-    return auth.signInWithEmailAndPassword(email, password)
+    return firebaseAuth.signInWithEmailAndPassword(email, password)
   }
 
   function logout() {
-    return auth.signOut()
+    return firebaseAuth.signOut()
   }
 
   function resetPassword(email) {
-    return auth.sendPasswordResetEmail(email)
+    return firebaseAuth.sendPasswordResetEmail(email)
+  }
+
+  function signInWithGooglePopup() {
+    return firebaseAuth.signInWithPopup(googleAuthProvider)
   }
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      setCurrentUser(user)
-      setLoading(false)
-    })
-    return unsubscribe
-  }, [])
+    let unsubscribe = () => {
+      firebaseAuth.onAuthStateChanged(user => {
+        if (user) {
+          // when signed in
+          setCurrentUser(user)
+        } else {
+          // when not signed in
+          setCurrentUser(null)
+        }
+        setLoading(false)
+      })
+    }
+    unsubscribe()
+  }, [currentUser])
 
   const value = {
     currentUser,
     signup,
     signin,
     logout,
-    resetPassword
+    resetPassword,
+    signInWithGooglePopup
   }
 
   return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>

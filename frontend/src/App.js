@@ -4,10 +4,10 @@ import { createTheme } from "@mui/material"
 import { AuthProvider } from "./contexts/AuthContext"
 import StoreContext from "./contexts/StoreContext"
 // COMPONENTS
-import SignUp from "./components/SignUp"
-import SignInSide from "./components/SignInSide"
+import SignUp from "./pages/SignUp"
+import SignInSide from "./pages/SignInSide"
 import PrivateRoute from "./components/PrivateRoute"
-import ForgotPassword from "./components/ForgotPassword"
+import ForgotPassword from "./pages/ForgotPassword"
 //PAGES
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import DashboardPage from "./pages/DashboardPage"

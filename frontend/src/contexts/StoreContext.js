@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { database } from "../components/firebase"
+import { db } from "../firebase/firebase-config"
 
 const initialState = {
   inventory: [],
@@ -8,8 +8,7 @@ const initialState = {
 
 export const Context = React.createContext()
 
-database
-  .collection("inventory")
+db.collection("inventory")
   .get()
   .then(snapshot => {
     const newInventory = snapshot.docs

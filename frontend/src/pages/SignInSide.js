@@ -3,6 +3,8 @@ import { TextField, Alert, Grid, Box, Paper, Checkbox, FormControlLabel, CssBase
 import { Link, Redirect } from "react-router-dom"
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
+import GoogleIcon from "@mui/icons-material/Google"
+
 import Typography from "@mui/material/Typography"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 
@@ -27,11 +29,15 @@ export default function SignInSide() {
   const emailRef = useRef()
   const passwordRef = useRef()
 
-  const { signin } = useAuth()
+  const { signin, signInWithGooglePopup } = useAuth()
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
 
   const { currentUser } = useAuth()
+
+  const handleSignInWithGoogle = () => {
+    signInWithGooglePopup()
+  }
 
   const handleSubmit = async event => {
     event.preventDefault()
@@ -89,6 +95,9 @@ export default function SignInSide() {
               <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
               <Button disabled={loading} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Sign In
+              </Button>
+              <Button onClick={handleSignInWithGoogle} disabled={loading} type="open" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                <GoogleIcon /> {"Sign In With Google"}
               </Button>
               <Grid container>
                 <Grid item xs>
